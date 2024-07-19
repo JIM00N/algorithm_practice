@@ -1,4 +1,4 @@
-# Ploblem : [사칙연산] https://www.acmicpc.net/problem/1316
+# Ploblem : [그룹 단어 체커] https://www.acmicpc.net/problem/1316
 # Solver : 문지석 (jimoon@gachon.ac.kr)
 # Solved Date : 2024.07.19
 # BigO: n ** 2
