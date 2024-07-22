@@ -48,4 +48,4 @@ l = list()
 C의 Array는 고정된 크기를 가지고 배열에 정해진 자료형의 값을 저장하지만 Python List는 크기를 계속해서 수정할 수 있으며 list에 값을 그대로 저장하는 방식이 아니라 독립적인 object를 만들고 그 object의 주소를 저장한다.
 독립적인 object를 만들기에 object의 자료형을 자유롭게 선택할 수 있다.
 
-<image src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiBuQ8%2Fbtslw75X9rR%2FDk9cfnN0Qc5Nqk9xqwI5Sk%2Fimg.png" alt="python list" above="list 예시">
+<image src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiBuQ8%2Fbtslw75X9rR%2FDk9cfnN0Qc5Nqk9xqwI5Sk%2Fimg.png" alt="python list">
