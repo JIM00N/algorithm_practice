@@ -18,7 +18,7 @@ void insertFront(node** head, int data, node** end){
     // 3. set next to point to head node
     new_node->next = *head;
     // 4. set previous of crrent head to new node
-    if (*head != NULL)
+    if (*end != NULL)
     {
         (*head)->prev = new_node;
     }
@@ -31,6 +31,18 @@ void insertFront(node** head, int data, node** end){
     *head = new_node;
 }
 
+void insertBack(node** head, int data, node** end){
+    node* new_node = (node*)malloc(sizeof(node));
+    new_node->value = data;
+    new_node->next = NULL;
+    if (*head != NULL){
+        (*end)->next = new_node;
+    }
+    else{
+        *head = new_node;
+    }
+    *end = new_node;
+}
 
 int main() {
     
@@ -54,5 +66,16 @@ int main() {
     }
     printf("\n");
     
+    printf("Test insertBack 1->2->3->4\n");
+    insertBack(&head, 1, &end);
+    insertBack(&head, 2, &end);
+    insertBack(&head, 3, &end);
+    insertBack(&head, 4, &end);
+    printf("print insertBack result: ");
+    for (node* cur = head; cur != NULL; cur = cur->next)
+    {
+        printf("%d ", cur->value);
+    }
+    printf("\n");
     return 0;
 }
