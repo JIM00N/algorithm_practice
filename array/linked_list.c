@@ -31,6 +31,7 @@ void insertFront(node** head, int data, node** end){
     *head = new_node;
 }
 
+
 int main() {
     
     node *head = NULL;
@@ -39,18 +40,19 @@ int main() {
     node *end = NULL;
     
     // call the insert_at_front function four times
+    printf("Test insertFront 1->2->3->4\n");
     insertFront(&head, 1, &end);
     insertFront(&head, 2, &end);
     insertFront(&head, 3, &end);
     insertFront(&head, 4, &end);
     
     // // print the list in forward direction
-    
+    printf("print insertFront result: ");
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
-        printf("%d\n", cur->value);
+        printf("%d ", cur->value);
     }
-    
+    printf("\n");
     
     return 0;
 }
