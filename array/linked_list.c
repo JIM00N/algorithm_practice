@@ -45,7 +45,7 @@ void insertBack(node** head, int data, node** end){
     *end = new_node;
 }
 
-void insertMiddle(node** head, int position, int data, node** end){
+void insertMiddle(node** head, int position, int data){
     // position이 리스트 제일 앞 혹은 뒤라면 insertFront/Back 쓰려고 했는데 방법을 모르겠습니다...
     node* new_node = (node*)malloc(sizeof(node));
     new_node->value = data;
@@ -68,15 +68,15 @@ void insertMiddle(node** head, int position, int data, node** end){
         }
         temp = temp->next;
     }
-
-    while (temp->prev != NULL)
-    {
-        temp = temp->prev;
-    }
-    
-    
 }
 
+void removeFront(node** head, node** end){
+    if (*head==*end)
+    {printf("nothing to delete");}
+    
+    (*head)->next->prev = NULL;
+    (*head) = (*head)->next;
+}
 
 
 int main() {
@@ -114,7 +114,7 @@ int main() {
     printf("\n");
 
     printf("Test insertMiddle 888\n");
-    insertMiddle(&head, 5, 888, &end);
+    insertMiddle(&head, 5, 888);
     printf("print insertMiddle result: ");
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
@@ -122,5 +122,13 @@ int main() {
     }
     printf("\n");
 
+    printf("Test removeFront\n");
+    removeFront(&head, &end);
+    printf("print removeFront : ");
+    for (node* cur = head; cur != NULL; cur = cur->next)
+    {
+        printf("%d ", cur->value);
+    }
+    printf("\n");
     return 0;
 }
