@@ -45,29 +45,40 @@ void insertBack(node** head, int data, node** end){
     *end = new_node;
 }
 
-void insertMiddle(node** head, int position, int data){
-    // position이 리스트 제일 앞 혹은 뒤라면 insertFront/Back 쓰려고 했는데 방법을 모르겠습니다...
+void insertMiddle(node** head, int position, int data, node** end){
     node* new_node = (node*)malloc(sizeof(node));
     new_node->value = data;
     node* temp = *head;
-
-    for (int count = 0; count <= position; count++){
-        
-        if ((count+1)==position){
-            new_node->prev = temp;
-        }
-        if (count == position){
-            new_node->next = temp;
-            
-            if (temp->prev!=NULL)
-            {
-                temp->prev->next = new_node;
-                temp->prev = new_node;
-                new_node->next = temp;
-            }
-        }
-        temp = temp->next;
+    node* cur = *head;
+    for (int i=0; i<(position); i++){
+        cur = cur->next;
     }
+
+    if (cur->prev == NULL || cur->next == NULL){
+        if (cur->prev == NULL){insertFront(head, data, end);}
+        else {insertBack(head, data, end);}
+    }
+    else
+    {
+        for (int count = 0; count <= position; count++){
+            
+            if ((count+1)==position){
+                new_node->prev = temp;
+            }
+            if (count == position){
+                new_node->next = temp;
+                
+                if (temp->prev!=NULL)
+                {
+                    temp->prev->next = new_node;
+                    temp->prev = new_node;
+                    new_node->next = temp;
+                }
+            }
+            temp = temp->next;
+        }
+    }
+    
 }
 
 void removeFront(node** head, node** end){
@@ -91,9 +102,32 @@ void removeMiddle(node** head, int position, node** end){
     for (int i=0; i<(position-1); i++){
         cur = cur->next;
     }
-    printf("%d", (cur)->value);
+    if (cur->prev == NULL)
+    {
+        removeFront(head, end);
+    }
+    else if (cur->next == NULL)
+    {
+        removeBack(head, end);
+    }
+    else
+    {
     cur->next = cur->next->next;
-    cur->next->next->prev = cur;
+    cur->next->prev = cur;
+    }
+    
+}
+
+void swap(node** head, int p1, int p2, node** end){
+    node* a = *head;
+    node* b = *head;
+    for (size_t i = 0; i < p1; i++){a = a->next;}
+    for (size_t i = 0; i < p2; i++){b = b->next;}
+    int gap = p2 - p1;
+    removeMiddle(head, p1, end);
+    removeMiddle(head, p2, end);
+    insertMiddle(head, p1, b->value, end);
+    insertMiddle(head, p1 + gap, a->value, end);
 }
 
 int main() {
@@ -133,7 +167,7 @@ int main() {
     printf("Test insertMiddle 888\n");
     int position = 4;
     int value = 888;
-    insertMiddle(&head, position, value);
+    insertMiddle(&head, position, value, &end);
     printf("print insertMiddle result: ");
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
@@ -168,5 +202,16 @@ int main() {
         printf("%d ", cur->value);
     }
     printf("\n");
+
+    printf("Test Swap\n");
+    int idx1, idx2;
+    idx1 = 0; idx2 = 2;
+    swap(&head, idx1, idx2, &end);
+    for (node* cur = head; cur != NULL; cur = cur->next)
+    {
+        printf("%d ", cur->value);
+    }
+    printf("\n");
+
     return 0;
 }
