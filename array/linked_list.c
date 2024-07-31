@@ -51,7 +51,7 @@ void insertMiddle(node** head, int position, int data){
     new_node->value = data;
     node* temp = *head;
 
-    for (int count = 1; count <= position; count++){
+    for (int count = 0; count <= position; count++){
         
         if ((count+1)==position){
             new_node->prev = temp;
@@ -78,6 +78,23 @@ void removeFront(node** head, node** end){
     (*head) = (*head)->next;
 }
 
+void removeBack(node** head, node** end){
+    if (*end == *head){printf("nothing to delete");}
+
+    (*end)->prev->next = NULL;
+    *end = (*end)->prev;
+}
+
+void removeMiddle(node** head, int position, node** end){
+    node* cur = *head;
+    
+    for (int i=0; i<(position-1); i++){
+        cur = cur->next;
+    }
+    printf("%d", (cur)->value);
+    cur->next = cur->next->next;
+    cur->next->next->prev = cur;
+}
 
 int main() {
     
@@ -114,7 +131,9 @@ int main() {
     printf("\n");
 
     printf("Test insertMiddle 888\n");
-    insertMiddle(&head, 5, 888);
+    int position = 4;
+    int value = 888;
+    insertMiddle(&head, position, value);
     printf("print insertMiddle result: ");
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
@@ -125,6 +144,25 @@ int main() {
     printf("Test removeFront\n");
     removeFront(&head, &end);
     printf("print removeFront : ");
+    for (node* cur = head; cur != NULL; cur = cur->next)
+    {
+        printf("%d ", cur->value);
+    }
+    printf("\n");
+
+    printf("Test removeBack\n");
+    removeBack(&head, &end);
+    printf("print removeBack : ");
+    for (node* cur = head; cur != NULL; cur = cur->next)
+    {
+        printf("%d ", cur->value);
+    }
+    printf("\n");
+
+    printf("Test removeMiddle\n");
+    int idx = 3;
+    removeMiddle(&head, idx,&end);
+    printf("print removeMiddle : ");
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
         printf("%d ", cur->value);
