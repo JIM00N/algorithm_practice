@@ -42,7 +42,7 @@ Python에서는 C의 array, linked list와 비슷하지만 다른 list 자료형
 arr = []
 l = list()
 ```
-파이썬의 list는 위와 같이 선언할 수 있고, 이는 크기가 정해지지 않은 C의 Array와 비슷하다.
+파이썬의 list는 위와 같이 선언할 수 있다.
 
 C의 Array는 고정된 크기를 가지고 배열에 정해진 자료형의 값을 저장하지만 Python List는 크기를 계속해서 수정할 수 있으며 list에 값을 그대로 저장하는 방식이 아니라 독립적인 object를 만들고 그 object의 주소를 저장한다.
 독립적인 object를 만들기에 object의 자료형을 자유롭게 선택할 수 있다.
