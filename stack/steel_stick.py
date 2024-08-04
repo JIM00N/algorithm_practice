@@ -1,7 +1,7 @@
 # Ploblem : [쇠 막대기] https://www.acmicpc.net/problem/10799
 # Solver : 문지석
 # Solved Date : 2024.08.04
-# BigO : 
+# BigO : n
 
 brakets = input()
 left = 0
