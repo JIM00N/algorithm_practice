@@ -35,9 +35,9 @@ void insertBack(node** head, int data, node** end){
     node* new_node = (node*)malloc(sizeof(node));
     new_node->value = data;
     new_node->next = NULL;
+    new_node->prev = *end;
     if (*head != NULL){
         (*end)->next = new_node;
-        new_node->prev = *end;
     }
     else{
         *head = new_node;
@@ -60,23 +60,10 @@ void insertMiddle(node** head, int position, int data, node** end){
     }
     else
     {
-        for (int count = 0; count <= position; count++){
-            
-            if ((count+1)==position){
-                new_node->prev = temp;
-            }
-            if (count == position){
-                new_node->next = temp;
-                
-                if (temp->prev!=NULL)
-                {
-                    temp->prev->next = new_node;
-                    temp->prev = new_node;
-                    //new_node->next = temp;
-                }
-            }
-            temp = temp->next;
-        }
+        new_node -> prev = cur ->prev;
+        new_node -> next = cur;
+        cur->prev->next = new_node;
+        cur->prev = new_node;
     }
     
 }
@@ -85,16 +72,20 @@ void removeFront(node** head, node** end){
     if (*head==*end)
     {printf("nothing to delete");}
     else{
+    node* temp = *head;
     (*head)->next->prev = NULL;
     (*head) = (*head)->next;
+    free(temp);
     }
 }
 
 void removeBack(node** head, node** end){
     if (*end == *head){printf("nothing to delete");}
     else{
-    (*end)->prev->next = NULL;
-    *end = (*end)->prev;
+    node* temp = *end;
+    (*end)->next->prev = NULL;
+    (*end) = (*end)->next;
+    free(temp);
     }
 }
 
@@ -114,8 +105,10 @@ void removeMiddle(node** head, int position, node** end){
     }
     else
     {
+    node* temp = cur->next;
     cur->next = cur->next->next;
     cur->next->prev = cur;
+    free(temp);
     }
     
 }
