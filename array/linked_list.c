@@ -84,16 +84,18 @@ void insertMiddle(node** head, int position, int data, node** end){
 void removeFront(node** head, node** end){
     if (*head==*end)
     {printf("nothing to delete");}
-    
+    else{
     (*head)->next->prev = NULL;
     (*head) = (*head)->next;
+    }
 }
 
 void removeBack(node** head, node** end){
     if (*end == *head){printf("nothing to delete");}
-
+    else{
     (*end)->prev->next = NULL;
     *end = (*end)->prev;
+    }
 }
 
 void removeMiddle(node** head, int position, node** end){
