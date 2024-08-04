@@ -72,7 +72,7 @@ void insertMiddle(node** head, int position, int data, node** end){
                 {
                     temp->prev->next = new_node;
                     temp->prev = new_node;
-                    new_node->next = temp;
+                    //new_node->next = temp;
                 }
             }
             temp = temp->next;
