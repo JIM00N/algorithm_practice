@@ -82,10 +82,10 @@ void removeFront(node** head, node** end){
 void removeBack(node** head, node** end){
     if (*end == *head){printf("nothing to delete");}
     else{
-    node* temp = *end;
-    (*end)->next->prev = NULL;
-    (*end) = (*end)->next;
-    free(temp);
+        node* temp = *end;
+        (*end)->prev->next = NULL;
+        (*end) = (*end)->prev;
+        free(temp);
     }
 }
 
@@ -113,16 +113,72 @@ void removeMiddle(node** head, int position, node** end){
     
 }
 
-void swap(node** head, int p1, int p2, node** end){
+void swap1(node** head, int p1, int p2, node** end){
     node* a = *head;
     node* b = *head;
     for (size_t i = 0; i < p1; i++){a = a->next;}
     for (size_t i = 0; i < p2; i++){b = b->next;}
     int gap = p2 - p1;
+    int a_val = a->value; // 밑에서 removeM하면 가르키던 값이 free되어버려 엉뚱한 결과가 나온다.
+    int b_val = b->value; // 따라서 미리 저장해줘야한다.
     removeMiddle(head, p1, end);
     removeMiddle(head, p2, end);
-    insertMiddle(head, p1, b->value, end);
-    insertMiddle(head, p1 + gap, a->value, end);
+    insertMiddle(head, p1, b_val, end);
+    insertMiddle(head, p1 + gap, a_val, end);
+}
+
+void swap2(node** head, int p1, int p2, node** end){
+    node* a = *head;
+    node* b = *head;
+    for (size_t i = 0; i < p1; i++){a = a->next;}
+    for (size_t i = 0; i < p2; i++){b = b->next;}
+    // step1 gap=1 or not
+    node* tempA = (node*)malloc(sizeof(node));
+    tempA->next = a->next;
+    tempA->prev = a->prev;
+    if ((p2-p1)!=1)
+    {   
+        if (a->prev==NULL)
+        {   
+            a->next->prev = b;
+            b->prev->next = a;
+            b->next->prev = a;
+            a->prev = b->prev;
+            a->next = b->next;
+            b->prev = tempA->prev;
+            b->next = tempA->next;
+            *head = b;
+        }
+        else{
+            a->prev->next = b;
+            a->next->prev = b;
+            b->prev->next = a;
+            b->next->prev = a;
+
+            a->next = b->next;
+            a->prev = b->prev;
+            b->next = tempA->next;
+            b->prev = tempA->prev;
+        }
+    }
+    else{
+        if (a->prev==NULL){
+            b->next->prev = a;
+            b->prev = a->prev;
+            a->prev = b;
+            a->next = b->next;
+            b->next = a;
+            *head = b;
+        }
+        else{
+            a->prev->next = b;
+            b->next->prev = a;
+            b->prev = a->prev;
+            a->prev = b;
+            a->next = b->next;
+            b->next = a;
+        }
+    }   
 }
 
 int main() {
@@ -198,15 +254,25 @@ int main() {
     }
     printf("\n");
 
-    printf("Test Swap\n");
-    int idx1, idx2;
-    idx1 = 0; idx2 = 2;
-    swap(&head, idx1, idx2, &end);
+    printf("Test Swap1\n");
+    int s1_idx1, s1_idx2;
+    s1_idx1 = 0; s1_idx2 = 2;
+    swap1(&head, s1_idx1, s1_idx2, &end);
     for (node* cur = head; cur != NULL; cur = cur->next)
     {
         printf("%d ", cur->value);
     }
     printf("\n");
+
+    printf("Test Swap2\n");
+        int s2_idx1, s2_idx2;
+        s2_idx1 = 0; s2_idx2 = 2;
+        swap2(&head, s2_idx1, s2_idx2, &end);
+        for (node* cur = head; cur != NULL; cur = cur->next)
+        {
+            printf("%d ", cur->value);
+        }
+        printf("\n");
 
     return 0;
 }
