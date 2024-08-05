@@ -33,4 +33,3 @@ if __name__=="__main__":
     print("====showall start====")
     stack.showall()
     print("====showall end====")
-    
