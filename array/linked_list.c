@@ -54,10 +54,10 @@ void insertMiddle(node** head, int position, int data, node** end){
         cur = cur->next;
     }
 
-    if (cur->prev == NULL || cur->next == NULL){
-        if (cur->prev == NULL){insertFront(head, data, end);}
-        else {insertBack(head, data, end);}
-    }
+    if (cur->prev == NULL)
+    {insertFront(head, data, end);}
+    else if (cur->next == NULL)
+    {insertBack(head, data, end);}
     else
     {
         new_node -> prev = cur ->prev;
