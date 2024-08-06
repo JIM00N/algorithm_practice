@@ -69,20 +69,36 @@ void insertMiddle(node** head, int position, int data, node** end){
 }
 
 void removeFront(node** head, node** end){
-    if (*head==*end)
-    {printf("nothing to delete");}
-    else{
     node* temp = *head;
-    (*head)->next->prev = NULL;
-    (*head) = (*head)->next;
-    free(temp);
+    
+    if (*head==*end && *head==NULL) {printf("This list is empty.");}
+
+    else if (*head==*end && *head!=NULL)
+    {
+        *head = NULL;
+        *end = NULL;
+        free(temp);
+    }
+
+    else{
+        (*head)->next->prev = NULL;
+        (*head) = (*head)->next;
+        free(temp);
     }
 }
 
 void removeBack(node** head, node** end){
-    if (*end == *head){printf("nothing to delete");}
+    node* temp = *end;
+    if (*head==*end && *end==NULL) {printf("This list is empty.");}
+
+    else if (*head==*end && *end!=NULL)
+    {
+        *head = NULL;
+        *end = NULL;
+        free(temp);
+    }
+
     else{
-        node* temp = *end;
         (*end)->prev->next = NULL;
         (*end) = (*end)->prev;
         free(temp);
