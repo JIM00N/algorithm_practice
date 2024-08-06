@@ -42,11 +42,15 @@ void dequeue(node** head, node** end){
 }
 
 void showAll(node** head, node** end){
-    while (*head != *end)
-    {
-    printf("%d  ", (*head)->value);
-    }
+    node* cur = *head;
+    printf("all remaining elements in this queue : \n");
     
+    while (cur!=NULL)
+    {   
+        printf("%d ", cur->value);
+        cur = cur->next;
+    }
+    printf("\n");
 }
 
 void size(node** head, node** end){
@@ -63,9 +67,9 @@ void size(node** head, node** end){
 
 void isEmpty(node** head, node** end){
     if (*head==*end && *head==NULL)
-    {printf("true\n");}
+    {printf("This queue is empty = true\n");}
     else
-    {printf("false\n");}
+    {printf("This queue is empty = false\n");}
 }
 
 int main(){
@@ -82,15 +86,16 @@ int main(){
 
     size(&head, &end);
 
-    printf("This queue is empty : ");
     isEmpty(&head, &end);
     
+    showAll(&head, &end);
+
     printf("Dequeue : Last Two Values\n");
     dequeue(&head, &end);
     dequeue(&head, &end);
 
     size(&head, &end);
-    
-    printf("This queue is empty : ");
+
     isEmpty(&head, &end);
+
 }
