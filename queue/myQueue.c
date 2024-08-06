@@ -97,5 +97,5 @@ int main(){
     size(&head, &end);
 
     isEmpty(&head, &end);
-
+    return 0;
 }
