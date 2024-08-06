@@ -48,7 +48,6 @@ void insertBack(node** head, int data, node** end){
 void insertMiddle(node** head, int position, int data, node** end){
     node* new_node = (node*)malloc(sizeof(node));
     new_node->value = data;
-    node* temp = *head;
     node* cur = *head;
     for (int i=0; i<(position); i++){
         cur = cur->next;
