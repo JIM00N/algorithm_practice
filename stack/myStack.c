@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node{
-    node* prev;
+    struct node* prev;
     int value;
-    node* next;
+    struct node* next;
 }node;
 
 void push(node** head, int element, node** end){
@@ -21,25 +22,28 @@ void push(node** head, int element, node** end){
     *end = new_node;
 }
 
-void pop(node** head, node** end){
+int pop(node** head, node** end){
     node* temp = *end;
+    int val;
     if (*head==*end && *end==NULL) {printf("This queque is empty.");}
 
     else if (*head==*end && *end!=NULL)
     {
-        printf("%d\n", (*end)->value);
+        val = (*end)->value;
         *head = NULL;
         *end = NULL;
         free(temp);
     }
 
     else{
-        printf("%d\n", (*end)->value);
+        val = (*end)->value;
         (*end)->prev->next = NULL;
         (*end) = (*end)->prev;
         free(temp);
     }
+    return val;
 }
+
 void showAll(node** head, node** end){
     node* cur = *head;
     printf("all remaining elements in this queue : \n");
@@ -52,7 +56,7 @@ void showAll(node** head, node** end){
     printf("\n");
 }
 
-void size(node** head, node** end){
+int size(node** head, node** end){
     int size_count = 0;
     node* cur = NULL;
     while (cur!=*end)
@@ -61,14 +65,14 @@ void size(node** head, node** end){
         else {cur = cur->next;}
         size_count += 1;
     }
-    printf("the size of this stack is %d\n", size_count);
+    return size_count;
 }
 
-void isEmpty(node** head, node** end){
+int isEmpty(node** head, node** end){
     if (*head==*end && *head==NULL)
-    {printf("This stack is empty = true\n");}
+    {return true;}
     else
-    {printf("This stack is empty = false\n");}
+    {return false;}
 }
 
 int main(){
@@ -81,20 +85,20 @@ int main(){
 
     printf("Pop : Three Values\n");
     for (int i = 1; i < 4; i++)
-    {pop(&head, &end);}
+    {int poop = pop(&head, &end);
+        printf("pop %d\n", poop);}
 
-    size(&head, &end);
+    printf("the size of this stack : %d\n", size(&head, &end));
 
-    isEmpty(&head, &end);
-
+    printf("This stack is empty: %d (0:False, 1:True)\n", isEmpty(&head, &end));
     showAll(&head, &end);
 
     printf("Pop : Last Two Values\n");
-    pop(&head, &end);
-    pop(&head, &end);
+    printf("pop : %d\n", pop(&head, &end));
+    printf("pop : %d\n", pop(&head, &end));
 
-    size(&head, &end);
+    printf("the size of this stack : %d\n", size(&head, &end));
 
-    isEmpty(&head, &end);
+    printf("This stack is empty: %d (0:False, 1:True)\n", isEmpty(&head, &end));
     return 0;
 }
