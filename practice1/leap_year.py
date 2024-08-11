@@ -1,7 +1,7 @@
 # Ploblem : [윤년] https://www.acmicpc.net/problem/2753
 # Solver : 문지석 (jimoon@gachon.ac.kr)
 # Solved Date : 2024.07.19
-# BigO: n
+# BigO: 1
 
 year = int(input())
 
