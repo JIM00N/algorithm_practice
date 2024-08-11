@@ -1,4 +1,4 @@
-# Ploblem : [하노이 탑 이동 순서] https://www.acmicpc.net/problem/11729
+# Problem : [하노이 탑 이동 순서] https://www.acmicpc.net/problem/11729
 # Solver : 문지석
 # Solved Date : 2024.08.11
 # BigO : 2 ** n
