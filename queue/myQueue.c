@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node{
     node* prev;
@@ -21,24 +22,27 @@ void enqueue(node** head, int data, node** end){
     *end = new_node;
 }
 
-void dequeue(node** head, node** end){
+int dequeue(node** head, node** end){
     node* temp = *head;
+    int val;
     if (*head==*end && *head==NULL) {printf("This queque is empty.");}
 
     else if (*head==*end && *head!=NULL)
     {
-        printf("%d\n", (*head)->value);
+        val = (*head)->value;
         *head = NULL;
         *end = NULL;
         free(temp);
     }
     
     else{
-        printf("%d\n", (*head)->value);
+        val = (*head)->value;
         (*head)->next->prev = NULL;
         (*head) = (*head)->next;
         free(temp);
     }
+
+    return val;
 }
 
 void showAll(node** head, node** end){
@@ -53,7 +57,7 @@ void showAll(node** head, node** end){
     printf("\n");
 }
 
-void size(node** head, node** end){
+int size(node** head, node** end){
     int size_count = 0;
     node* cur = NULL;
     while (cur!=*end)
@@ -62,14 +66,14 @@ void size(node** head, node** end){
         else {cur = cur->next;}
         size_count += 1;
     }
-    printf("the size of this queue is %d\n", size_count);
+    return size_count;
 }
 
-void isEmpty(node** head, node** end){
+int isEmpty(node** head, node** end){
     if (*head==*end && *head==NULL)
-    {printf("This queue is empty = true\n");}
+    {return true;}
     else
-    {printf("This queue is empty = false\n");}
+    {return false;}
 }
 
 int main(){
@@ -82,20 +86,22 @@ int main(){
 
     printf("Dequeue : Three Values\n");
     for (int i = 1; i < 4; i++)
-    {dequeue(&head, &end);}
+    {
+        int deq = dequeue(&head, &end);
+        printf("dequeue %d\n", deq);
+    }
 
-    size(&head, &end);
+    printf("the size of this queue is %d\n", size(&head, &end));
 
-    isEmpty(&head, &end);
+    printf("This queue is empty: %d (0:False, 1:True)\n", isEmpty(&head, &end));
     
     showAll(&head, &end);
 
     printf("Dequeue : Last Two Values\n");
-    dequeue(&head, &end);
-    dequeue(&head, &end);
+    printf("dequeue %d\n", dequeue(&head, &end));
+    printf("dequeue %d\n", dequeue(&head, &end));
 
-    size(&head, &end);
-
-    isEmpty(&head, &end);
+    printf("the size of this queue is %d\n", size(&head, &end));
+    printf("This queue is empty: %d (0:False, 1:True)\n", isEmpty(&head, &end));
     return 0;
 }
