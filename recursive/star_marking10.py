@@ -1,3 +1,8 @@
+# Problem : [별 찍기 - 10] https://www.acmicpc.net/problem/2447
+# Solver : 문지석
+# Solved Date : 2024.08.16
+# BigO : 2 ** n
+
 class star_marking_10():
     def __init__(self, n):
         self.n = n
