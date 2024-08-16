@@ -60,7 +60,6 @@ class star_marking_10():
                 tmp += i
         mul_a += tmp + self.blank(k) + tmp
         return mul_a
-        # blank 건들여야함...
 
 n = int(input())
 stars = star_marking_10(n)
