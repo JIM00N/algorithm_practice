@@ -16,7 +16,8 @@ class star_marking_10():
         else:
             mul_a = self.multi_a(3**self.count)
             self.count += 1
-            self.star_marked = self.threeTimes_1(self.star_marked) + "\n" + mul_a + "\n" + self.threeTimes_1(self.star_marked)
+            x_three = self.threeTimes_1(self.star_marked)
+            self.star_marked =  x_three + "\n" + mul_a + "\n" + x_three
             return self.star_marking(n//3)
 
     def blank(self, n):
