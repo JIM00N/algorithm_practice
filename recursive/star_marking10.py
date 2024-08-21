@@ -7,7 +7,7 @@ class star_marking_10():
     def __init__(self, n):
         self.n = n
         self.star_list = ["*", "***"]
-        self.a = f"{self.star_list[0]}" + self.blank(1) + f"{self.star_list[0]}"
+        self.a = f"{self.star_list[0]}" + self.blank(1) + f"{self.star_list[0]}" # 중간
         self.star_marked = self.star_list[1] + "\n" + self.a + "\n" + self.star_list[1]
         self.count = 1
     def star_marking(self, n):
@@ -36,21 +36,11 @@ class star_marking_10():
         
         strs_long += 3*strs
         return strs_long
-        
-    def threeTimes_2(self, stars):
-        strs = ""
-        for i in stars:
-            if i=="\n":
-                continue
-            else:
-                strs += i*3
-        
-        return strs
     
     def multi_a(self, k):
-        self.a = self.star_marked
+        self.a = self.star_marked #self.star_list[1] + "\n" + self.a + "\n" + self.star_list[1]
         mul_a = ""
-        tmp = ""
+        tmp = "" 
         for i in self.a:
             if i=="\n":
                 tmp = tmp + self.blank(k) + tmp + i
