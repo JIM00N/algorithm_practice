@@ -1,12 +1,15 @@
 from dataclasses import dataclass
 from collections import deque
+
+
 @dataclass
 class Node:
-    value : int
-    left_child : object = None
-    right_child : object = None
+    value: int
+    left_child: object = None
+    right_child: object = None
 
-class Tree():
+
+class Tree:
     def __init__(self):
         self.head = None
 
@@ -22,21 +25,21 @@ class Tree():
         node_2.left_child = node_4
         node_2.right_child = node_5
         self.head = node_1
-        
+
     def add_node(self, value):
-        if self.head==None:
+        if self.head == None:
             self.head = Node(value)
         else:
             parent, child_pos = self.find_add_position()
-            if child_pos=="L":
+            if child_pos == "L":
                 parent.left_child = Node(value)
-            elif child_pos=="R":
+            elif child_pos == "R":
                 parent.right_child = Node(value)
-        
+
     def level_order(self):
         q = deque()
         q.append(self.head)
-        while len(q)!=0:
+        while len(q) != 0:
             cur_node = q.popleft()
             print(cur_node.value)
             if cur_node.left_child != None:
@@ -45,11 +48,11 @@ class Tree():
             if cur_node.right_child != None:
                 q.append(cur_node.right_child)
                 # print(f"line 2 {q}")
-                
+
     def find_add_position(self):
         q = deque()
         q.append(self.head)
-        while len(q)!=0:
+        while len(q) != 0:
             cur_node = q.popleft()
 
             if cur_node.left_child == None:
@@ -62,12 +65,12 @@ class Tree():
 
     def find_delete_position(self, id):
         level_order_nodes = []
-        
+
         q = deque()
         q.append(self.head)
         level_order_nodes.append((self.head, None, None))
 
-        while len(q)!=0 or len(level_order_nodes) < id:
+        while len(q) != 0 or len(level_order_nodes) < id:
             cur_node = q.popleft()
 
             if cur_node.left_child != None:
@@ -78,7 +81,7 @@ class Tree():
                 level_order_nodes.append((cur_node.right_child, cur_node, "R"))
 
         return level_order_nodes[id]
-            
+
     def delete_node(self, id):
         d_node, d_node_parent, d_node_side = self.find_delete_position(id)
         if d_node.left_child != None and d_node.right_child != None:
@@ -90,7 +93,7 @@ class Tree():
             d_node_parent.left_child = None
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     a = Tree()
     # a.set_test()
     a.add_node(20)
@@ -104,6 +107,6 @@ if __name__=="__main__":
     a.delete_node(4)
     print("---")
     a.level_order()
-    print('add node')
+    print("add node")
     a.add_node(300)
     a.level_order()
