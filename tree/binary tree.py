@@ -9,6 +9,7 @@ class Node:
 class Tree():
     def __init__(self):
         self.head = None
+
     def set_test(self):
         node_1 = Node(1)
         node_2 = Node(2)
@@ -59,7 +60,35 @@ class Tree():
                 q.append(cur_node.left_child)
                 q.append(cur_node.right_child)
 
+    def find_delete_position(self, id):
+        level_order_nodes = []
+        
+        q = deque()
+        q.append(self.head)
+        level_order_nodes.append((self.head, None, None))
+
+        while len(q)!=0 or len(level_order_nodes) < id:
+            cur_node = q.popleft()
+
+            if cur_node.left_child != None:
+                q.append(cur_node.left_child)
+                level_order_nodes.append((cur_node.left_child, cur_node, "L"))
+            if cur_node.right_child != None:
+                q.append(cur_node.right_child)
+                level_order_nodes.append((cur_node.right_child, cur_node, "R"))
+
+        return level_order_nodes[id]
             
+    def delete_node(self, id):
+        d_node, d_node_parent, d_node_side = self.find_delete_position(id)
+        if d_node.left_child != None and d_node.right_child != None:
+            raise RuntimeError("There is childnode")
+        del d_node
+        if d_node_side == "R":
+            d_node_parent.right_child = None
+        if d_node_side == "L":
+            d_node_parent.left_child = None
+
 
 if __name__=="__main__":
     a = Tree()
@@ -71,4 +100,10 @@ if __name__=="__main__":
     a.add_node(30)
     a.add_node(70)
     a.add_node(9)
+    a.level_order()
+    a.delete_node(4)
+    print("---")
+    a.level_order()
+    print('add node')
+    a.add_node(300)
     a.level_order()
