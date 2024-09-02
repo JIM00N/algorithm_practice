@@ -4,10 +4,10 @@
 # BigO : 2 ** n
 
 
-def cantor_operator(line, n, start, end):
+def cantor(line, n, start, end):
     sep_1 = int(end / 3)
     sep_2 = 2 * sep_1
-
+    
     if n == 0:
         return line
 
@@ -15,7 +15,7 @@ def cantor_operator(line, n, start, end):
         # line = --1-- | --2-- | --3--
 
         # --1--
-        num_1 = cantor_operator(line[:sep_1], n - 1, start, sep_1)
+        num_1 = cantor(line[:sep_1], n - 1, start, sep_1)
 
         # --2--
         # replace - to blank in the middle of the line
@@ -30,11 +30,11 @@ def cantor_operator(line, n, start, end):
 while True:
     try:
         n = int(input())
-        line = "-" * (3**n)
+        line = "-"*(3**n)
         start = 0
         end = len(line)
 
     except:
         break
 
-    print(f"{cantor_operator(line, n ,start, end)}")
+    print(f"{cantor(line, n ,start, end)}")
