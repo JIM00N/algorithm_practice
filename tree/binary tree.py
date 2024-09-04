@@ -92,6 +92,20 @@ class Tree:
         if d_node_side == "L":
             d_node_parent.left_child = None
 
+    def preorder(self, is_start=True, node=None):
+        if is_start:
+            node = self.head
+
+        if node == None:
+            return
+
+        print(node.value)
+
+        if node.left_child != None:
+            self.preorder(is_start=False, node=node.left_child)
+        if node.right_child != None:
+            self.preorder(is_start=False, node=node.right_child)
+
 
 if __name__ == "__main__":
     a = Tree()
@@ -110,3 +124,6 @@ if __name__ == "__main__":
     print("add node")
     a.add_node(300)
     a.level_order()
+    print("---")
+    print("preorder")
+    a.preorder(is_start=True)
