@@ -106,6 +106,36 @@ class Tree:
         if node.right_child != None:
             self.preorder(is_start=False, node=node.right_child)
 
+    def inorder(self, is_start=True, node=None):
+        if is_start:
+            node = self.head
+
+        if node == None:
+            return
+
+        if node.left_child != None:
+            self.inorder(is_start=False, node=node.left_child)
+
+        print(node.value)
+
+        if node.right_child != None:
+            self.inorder(is_start=False, node=node.right_child)
+
+    def postorder(self, is_start=True, node=None):
+        if is_start:
+            node = self.head
+
+        if node == None:
+            return
+
+        if node.left_child != None:
+            self.postorder(is_start=False, node=node.left_child)
+
+        if node.right_child != None:
+            self.postorder(is_start=False, node=node.right_child)
+
+        print(node.value)
+
 
 if __name__ == "__main__":
     a = Tree()
@@ -127,3 +157,9 @@ if __name__ == "__main__":
     print("---")
     print("preorder")
     a.preorder(is_start=True)
+    print("---")
+    print("inorder")
+    a.inorder(is_start=True)
+    print("---")
+    print("postorder")
+    a.postorder(is_start=True)
