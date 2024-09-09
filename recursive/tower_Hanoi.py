@@ -31,9 +31,7 @@ def track(org, n, dst):
         str = f"{org} {dst}"
         return str
 
-
 # track(1, n, 3) = track(1, n-1, 2) + track(1, 1, 3) + track(2, n-1, 3)
-# 순서 역시 중요
 
 n = int(input())
 print(f"{moves(n)}")
