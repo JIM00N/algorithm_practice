@@ -1,4 +1,4 @@
-# Ploblem : [완전 이진 트리] https://www.acmicpc.net/problem/9934
+# Problem : [완전 이진 트리] https://www.acmicpc.net/problem/9934
 # Solver : 문지석
 # Solved Date : 2024.09.10
 # BigO: 2 ** n
