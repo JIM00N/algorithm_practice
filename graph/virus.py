@@ -1,21 +1,19 @@
 # Problem : [바이러스] https://www.acmicpc.net/problem/2606
 # Solver : 문지석
 # Solved Date : 2024.09.10
-# BigO : 
+# BigO :
 
 
 import copy
-from dataclasses import dataclass
 
-class Node:
-    number: int
-    edge: list
 
 class Graph:
     def __init__(self, couple_list, adjacency):
         self.couple = couple_list
         self.matrix = adjacency
-    
+        self.infected = 0
+        self.counted = []
+
     def fill_info(self):
         for i in range(len(self.couple)):
             a_node = self.couple[i][0] - 1
@@ -23,8 +21,22 @@ class Graph:
 
             self.matrix[a_node][b_node] = 1
             self.matrix[b_node][a_node] = 1
-
         return self.matrix
+
+    def count_infected(self, id=0, is_start=False):
+        if is_start == True:
+            self.counted.append(0)
+            # 미리 0번노드를 추가하여
+            # 0번 노드와 연결되어있어 중복으로 세는걸 방지
+        for idx, val in enumerate(self.matrix[id]):
+            if val == 1:
+                self.matrix[id][idx] = 0
+                self.matrix[idx][id] = 0
+                if idx not in self.counted:
+                    # 이미 세어준 엣지가 아니라면(처음으로 세는 엣지라면)
+                    self.infected += 1
+                    self.counted.append(idx)
+                    self.count_infected(idx)
 
 computers = int(input())
 couple = int(input())
@@ -38,10 +50,10 @@ adjacency_matrix = []
 for i in range(computers):
     adjacency_matrix.append(copy.deepcopy(row))
 
-infection = Graph(couple_list, adjacency_matrix)
+virus = Graph(couple_list, adjacency_matrix)
+infection_matrix = virus.fill_info()
 
-infection_matrix = infection.fill_info()
+virus.count_infected(0, is_start=True)
+count = virus.infected
 
-count = 0
-
-# matrix는 완성했음 tree 알고리즘 이용해서 마지막 해결할 것
+print(count)
