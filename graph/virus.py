@@ -1,7 +1,7 @@
 # Problem : [바이러스] https://www.acmicpc.net/problem/2606
 # Solver : 문지석
-# Solved Date : 2024.09.10
-# BigO :
+# Solved Date : 2024.09.18
+# BigO : n ** 2
 
 
 import copy
@@ -24,10 +24,11 @@ class Graph:
         return self.matrix
 
     def count_infected(self, id=0, is_start=False):
+        # n ** 2
         if is_start == True:
             self.counted.append(0)
-            # 미리 0번노드를 추가하여
-            # 0번 노드와 연결되어있어 중복으로 세는걸 방지
+            # 미리 0번노드를 추가하여 
+            # 0번 노드와 연결된 엣지를 중복으로 세는걸 방지
         for idx, val in enumerate(self.matrix[id]):
             if val == 1:
                 self.matrix[id][idx] = 0
