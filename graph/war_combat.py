@@ -13,27 +13,27 @@ class war:
         self.len_row = len(soldiers[0])
         self.power = {"W": 0, "B": 0}
         self.my_team = 1
-        
+
     def count(self):
         for i in range(self.len_col):
             for j in range(self.len_row):
                 if self.visit[i][j] == True:
                     continue
-                
+
                 else:
                     self.visit[i][j] = True
                     self.move([i, j], self.matrix[i][j])
-                    self.power[self.matrix[i][j]] += self.my_team ** 2
+                    self.power[self.matrix[i][j]] += self.my_team**2
                     self.my_team = 1
         print(f"{self.power['W']} {self.power['B']}")
-                    
+
     def move(self, pos, team):
         col, row = pos[0], pos[1]
         up = [col + 1, row]
         down = [col - 1, row]
         right = [col, row + 1]
         left = [col, row - 1]
-        
+
         # 위 아래 오른쪽 왼쪽으로 움직이고 그 자리에서 재귀
         if up[0] < self.len_col and self.visit[up[0]][up[1]] == False:
             if self.matrix[up[0]][up[1]] == team:
@@ -64,9 +64,9 @@ len_row, len_col = tuple(map(int, input().split()))
 battle_ground = []
 
 for i in range(len_col):
-    row_input  = input()
+    row_input = input()
     battle_ground.append(row_input)
-    
+
 # 지나간데 안지나간데 매트릭스
 row = [False] * len_row
 visit_or_not_matrix = []
