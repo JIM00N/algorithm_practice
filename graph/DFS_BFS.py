@@ -1,7 +1,7 @@
 # Problem : [DFS와 BFS]] https://www.acmicpc.net/problem/1260
 # Solver : 문지석
 # Solved Date : 2024.09.28
-# BigO: 
+# BigO: n ** 2
 
 
 from dataclasses import dataclass
@@ -42,11 +42,13 @@ class BFS:
     def bfs(self, cur_id):
         self.result.append(cur_id)
         self.visit[cur_id] = True
+        # 처음으로 탐색할 노드와 연결된 노드들을 방문처리 + self.stack에 저장
         for next_id, t_f in enumerate(self.matrix[cur_id]):
             if t_f == True and self.visit[next_id] == False:
                 self.visit[next_id] = True
                 self.stack.append(next_id)
-                
+
+        # 첫 노드와 연결되어 있는 노드들을 하나씩 가져와서 위의 과정과 동일하게 진행
         while len(self.stack) != 0:
             next_node = self.stack.pop(0)
             self.result.append(next_node)
