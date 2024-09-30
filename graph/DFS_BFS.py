@@ -7,11 +7,12 @@
 from dataclasses import dataclass
 import copy
 
+
 @dataclass
 class Node:
     number: int
-    adjacency=[]
-    
+    adjacency = []
+
 
 class DFS:
     def __init__(self, adjacency_matrix):
@@ -24,11 +25,14 @@ class DFS:
         self.visit[cur_id] = True
         self.result.append(cur_id)
         for target_id in range(self.node_num):
-            if self.matrix[cur_id][target_id] == True and self.visit[target_id] == False:
+            if (
+                self.matrix[cur_id][target_id] == True
+                and self.visit[target_id] == False
+            ):
                 self.dfs(target_id)
 
     def get_result(self):
-        return map(lambda x: x+1, self.result)
+        return map(lambda x: x + 1, self.result)
 
 
 class BFS:
@@ -38,7 +42,7 @@ class BFS:
         self.visit = [False] * self.node_num
         self.stack = []
         self.result = []
-    
+
     def bfs(self, cur_id):
         self.result.append(cur_id)
         self.visit[cur_id] = True
@@ -57,10 +61,9 @@ class BFS:
                     self.visit[next_id] = True
                     self.stack.append(next_id)
 
-            
     def get_result(self):
-        return map(lambda x: x+1, self.result)
-                
+        return map(lambda x: x + 1, self.result)
+
 
 def init_mat(n):
     row = [False] * n
@@ -69,20 +72,21 @@ def init_mat(n):
         matrix.append(copy.deepcopy(row))
     return matrix
 
+
 if __name__ == "__main__":
     num_nodes, num_edge, start_node = tuple(map(int, input().split()))
     start_node = start_node - 1
     adjacency_matrix_dfs = init_mat(num_nodes)
     adjacency_matrix_bfs = init_mat(num_nodes)
-    
+
     for _ in range(num_edge):
         node_1, node_2 = tuple(map(int, input().split()))
         node_1 = node_1 - 1
         node_2 = node_2 - 1
-        
+
         adjacency_matrix_bfs[node_1][node_2] = True
         adjacency_matrix_bfs[node_2][node_1] = True
-        
+
         adjacency_matrix_dfs[node_1][node_2] = True
         adjacency_matrix_dfs[node_2][node_1] = True
 
