@@ -12,7 +12,7 @@ class address:
         self.visit = visit
         self.num_towns = 0
         self.kind_towns = []
-    
+
     def count(self):
         for i in range(n):
             for j in range(n):
@@ -22,14 +22,14 @@ class address:
                     self.move([i, j])
                     self.kind_towns.append(self.num_towns)
                     self.num_towns = 0
-    
+
     def move(self, pos):
         col, row = pos[0], pos[1]
         up = [col + 1, row]
         down = [col - 1, row]
         right = [col, row + 1]
         left = [col, row - 1]
-        
+
         if up[0] < self.n and self.visit[up[0]][up[1]] == False:
             if int(self.matrix[up[0]][up[1]]) == 1:
                 self.num_towns += 1
@@ -50,17 +50,17 @@ class address:
                 self.num_towns += 1
                 self.visit[left[0]][left[1]] = True
                 self.move([left[0], left[1]])
-                
+
     def get(self):
         return self.kind_towns
-    
+
 
 n = int(input())
 
 town = []
 
 for i in range(n):
-    row_input  = input()
+    row_input = input()
     town.append(row_input)
 
 row = [False] * n
@@ -71,7 +71,7 @@ for i in range(n):
 post = address(town, visit_or_not_matrix)
 post.count()
 result_list = post.get()
-result_list = sorted(result_list) # n * log(n)
+result_list = sorted(result_list)  # n * log(n)
 
 for i in range(len(result_list)):
     if i == 0:
