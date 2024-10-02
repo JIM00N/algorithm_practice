@@ -54,27 +54,27 @@ class address:
     def get(self):
         return self.kind_towns
 
+if __name__=="__main__":
+    n = int(input())
 
-n = int(input())
+    town = []
 
-town = []
+    for i in range(n):
+        row_input = input()
+        town.append(row_input)
 
-for i in range(n):
-    row_input = input()
-    town.append(row_input)
+    row = [False] * n
+    visit_or_not_matrix = []
+    for i in range(n):
+        visit_or_not_matrix.append(copy.deepcopy(row))
 
-row = [False] * n
-visit_or_not_matrix = []
-for i in range(n):
-    visit_or_not_matrix.append(copy.deepcopy(row))
+    post = address(town, visit_or_not_matrix)
+    post.count()
+    result_list = post.get()
+    result_list = sorted(result_list)  # n * log(n)
 
-post = address(town, visit_or_not_matrix)
-post.count()
-result_list = post.get()
-result_list = sorted(result_list)  # n * log(n)
+    for i in range(len(result_list)):
+        if i == 0:
+            print(len(result_list))
 
-for i in range(len(result_list)):
-    if i == 0:
-        print(len(result_list))
-
-    print(result_list[i])
+        print(result_list[i])
