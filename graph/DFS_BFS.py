@@ -34,26 +34,20 @@ class BFS:
         self.matrix = adjacency_matrix
         self.node_num = len(self.matrix)
         self.visit = [False] * self.node_num
-        self.stack = []
+
         self.result = []
 
     def bfs(self, cur_id):
-        self.result.append(cur_id)
+        queue = [cur_id]
         self.visit[cur_id] = True
-        # 처음으로 탐색할 노드와 연결된 노드들을 방문처리 + self.stack에 저장
-        for next_id, t_f in enumerate(self.matrix[cur_id]):
-            if t_f == True and self.visit[next_id] == False:
-                self.visit[next_id] = True
-                self.stack.append(next_id)
-
-        # 첫 노드와 연결되어 있는 노드들을 하나씩 가져와서 위의 과정과 동일하게 진행
-        while len(self.stack) != 0:
-            next_node = self.stack.pop(0)
-            self.result.append(next_node)
-            for next_id, t_f in enumerate(self.matrix[next_node]):
-                if t_f == True and self.visit[next_id] == False:
-                    self.visit[next_id] = True
-                    self.stack.append(next_id)
+        
+        while len(queue) != 0:
+            cur_node = queue.pop(0)
+            self.result.append(cur_node)
+            for next_node, t_f in enumerate(self.matrix[cur_node]):
+                if t_f == True and self.visit[next_node] == False:
+                    self.visit[next_node] = True
+                    queue.append(next_node)
 
     def get_result(self):
         return map(lambda x: x + 1, self.result)
@@ -84,9 +78,9 @@ if __name__ == "__main__":
         adjacency_matrix_dfs[node_1][node_2] = True
         adjacency_matrix_dfs[node_2][node_1] = True
 
-    my_dfs = DFS(adjacency_matrix_dfs)
-    my_dfs.dfs(start_node)
-    print(" ".join(map(str, my_dfs.get_result())))
+    # my_dfs = DFS(adjacency_matrix_dfs)
+    # my_dfs.dfs(start_node)
+    # print(" ".join(map(str, my_dfs.get_result())))
 
     my_bfs = BFS(adjacency_matrix_bfs)
     my_bfs.bfs(start_node)
