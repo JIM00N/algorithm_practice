@@ -4,14 +4,8 @@
 # BigO: n ** 2
 
 
-from dataclasses import dataclass
+
 import copy
-
-
-@dataclass
-class Node:
-    number: int
-    adjacency = []
 
 
 class DFS:
