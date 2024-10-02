@@ -59,19 +59,19 @@ class war:
                 self.visit[left[0]][left[1]] = True
                 self.move([left[0], left[1]], team)
 
+if __name__ == "__main__":
+    len_row, len_col = tuple(map(int, input().split()))
+    battle_ground = []
 
-len_row, len_col = tuple(map(int, input().split()))
-battle_ground = []
+    for i in range(len_col):
+        row_input = input()
+        battle_ground.append(row_input)
 
-for i in range(len_col):
-    row_input = input()
-    battle_ground.append(row_input)
+    # 지나간데 안지나간데 매트릭스
+    row = [False] * len_row
+    visit_or_not_matrix = []
+    for i in range(len_col):
+        visit_or_not_matrix.append(copy.deepcopy(row))
 
-# 지나간데 안지나간데 매트릭스
-row = [False] * len_row
-visit_or_not_matrix = []
-for i in range(len_col):
-    visit_or_not_matrix.append(copy.deepcopy(row))
-
-power = war(battle_ground, visit_or_not_matrix)
-power.count()
+    power = war(battle_ground, visit_or_not_matrix)
+    power.count()
