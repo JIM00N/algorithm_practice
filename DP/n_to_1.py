@@ -10,9 +10,6 @@ class one:
         self.count = {1: 0, 2: 1, 3: 1}
 
     def make_1(self):
-        if self.n == 2 or self.n == 3:
-            return self.count[self.n]
-
         for i in range(4, self.n + 1):
 
             if i % 2 == 0 and i % 3 == 0:
