@@ -24,3 +24,9 @@ if __name__=="__main__":
     # print(max_score(paths, scores))
     # print(path(num_stairs))
 
+'''
+n = 
+1) n - 2 
+2) n - 1 +>> n - 3
+dp를 사용하려면 리스트 두개를 만들고 서로 더해가자 n-2와 n-3을 두개 같이 계산하면 안돼
+'''
