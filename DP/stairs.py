@@ -3,26 +3,29 @@
 # Solved Date : 2024.10.06
 # BigO : n
 
-
-# def path(n):
-#     paths_dict = {1: 1, 2: 1, 3: 2, 4: 2}
-#     for i in range(5, n+1):
-#         tmp = paths_dict[i - 2] + paths_dict[i - 3]
-#         paths_dict[i] = tmp
-
-#     return paths_dict[n]
-
-def max_score(score_list):
-    pass
+# def num_step(n):
+#     step_count = [1, 2, 2]
+#     if n <= 3:
+#         return step_count[n-1]
+#     for i in range(4, n+1):
+#         if i % 3 == 1:
+#             step_count.append(step_count[i - 2] + 1)
+#         elif i % 3 == 2:
+#             step_count.append(step_count[i - 3] + 2)
+#         else:
+#             step_count.append(step_count[-1])
     
+#     return step_count[-1]
+            
+def max_score(score_list):
+    length = len(score_list)
+    # steps = num_step(length)
     
 
 if __name__=="__main__":
     num_stairs = int(input())
     scores = [int(input()) for _ in range(num_stairs)]
-    # paths = path(num_stairs)
-    # print(max_score(paths, scores))
-    # print(path(num_stairs))
+
 
 '''
 n = 
