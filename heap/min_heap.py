@@ -1,7 +1,7 @@
 # Problem : [최소 힙] https://www.acmicpc.net/problem/1927
 # Solver : 문지석
 # Solved Date : 2024.11.11
-# BigO :
+# BigO : N * logN
 import heapq
 import sys
 
