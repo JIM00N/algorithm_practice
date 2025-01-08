@@ -1,7 +1,7 @@
 # Problem : [알고리즘 수업 - 행렬 경로 문제1] https://www.acmicpc.net/problem/24418
 # Solver : 문지석
 # Solved Date : 2025.01.07
-# BigO :
+# BigO : N ** 2
 
 
 class path:
