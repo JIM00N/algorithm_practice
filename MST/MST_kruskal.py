@@ -14,21 +14,14 @@ class MST:
         for edge in self.edges:
             org_dst = sorted([edge[1], edge[2]])
             org, dst = org_dst[0], org_dst[1]
-            if org == self.group[org] and dst == self.group[dst]:
+
+            if ((org == self.group[org] and dst == self.group[dst]) 
+                or dst == self.group[dst]):
                 mode = 0
 
-            elif org == self.group[org]:
-                if self.group[dst] == self.group[org]:
-                    mode = 1
-                else:
-                    mode = 0
-                    if self.group[dst] < org:
-                        org, dst = dst, org
+            elif ((org != self.group[org] and dst != self.group[dst])
+                or org == self.group[org]):
 
-            elif dst == self.group[dst]:
-                mode = 0
-
-            else:
                 if self.group[dst] == self.group[org]:
                     mode = 1
                 else:
@@ -60,6 +53,4 @@ if __name__ == "__main__":
 
     mst = MST(num_nodes, edge_list)
     mst.link()
-    print(mst.group)
-    # print(mst.edges)
     print(mst.sum)
