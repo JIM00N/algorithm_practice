@@ -37,8 +37,8 @@ class MST:
             self.connected_nodes += 1 # 연결된 노드 개수 +1
 
             for element in self.paths[next_node]:
-                if element[0] != weight:
-                # 중복되는 값은 포함하지 않음
+                if self.mark_connected[element[1]] == 0:
+                # 연결되지 않은 노드만 push | element = [weight, node]
                     heapq.heappush(self.prior_q, element)
 
             self.paths[next_node] = []
