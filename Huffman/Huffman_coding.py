@@ -27,9 +27,9 @@ class huffman:
                 sum, "~", larger, smaller
             )  # 물결 표시가 알파벳보다 아스키 코드가 뒤임
 
-            heapq.heappush(self.data, [sum, "~", new_node])
+            heapq.heappush(self.data, [sum, new_node.chr, new_node])
 
-    def tracking_tree(self):
+    def start_from_root(self):
         root_node_data = heapq.heappop(self.data)
         root_node = root_node_data[2]
         if root_node.right_child != None:
@@ -62,21 +62,21 @@ class huffman:
 
 if __name__ == "__main__":
     text = "AAAAAAABBCCCDEEEEFFFFFFG"
-    char_num = {}
+    char_num = {} # {'A': [7, ''], ...} [{알파벳 등장 횟수}, {코드}]
     for char in text:
         try:
             char_num[char][0] += 1
         except:
-            char_num[char] = [1, ""]
+            char_num[char] = [1, ""] # [{알파벳 등장 횟수}, {코드}] 코드는 ""으로 초기화
 
-    dsc_order_char_num = []
+    node_heap = [] # 우선순위 힙 기준) #1: 등장 횟수 #2: 알파벳
     for key, value in char_num.items():
-        value = value[0]
-        heapq.heappush(dsc_order_char_num, [value, key, Node(value, key)])
+        frequency = value[0]
+        heapq.heappush(node_heap, [frequency, key, Node(frequency, key)])
 
-    huffman_code = huffman(char_num, dsc_order_char_num)
+    huffman_code = huffman(char_num, node_heap)
     huffman_code.popNpush()
-    huffman_code.tracking_tree()
+    huffman_code.start_from_root()
 
     print(huffman_code.result)
 
