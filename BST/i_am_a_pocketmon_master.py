@@ -23,36 +23,35 @@ class Pocketmon_Ball:
 
         if len(self.name_list) == 1:
             self.root = mon
+            return
 
-        else:
-            while self.root != None:
-                if self.root.name > mon.name:
-                    if self.root.left_child != None:
-                        self.root = self.root.left_child
-                    else:
-                        self.root.left_child = mon
-                        break
-                elif self.root.name < mon.name:
-                    if self.root.right_child != None:
-                        self.root = self.root.right_child
-                    else:
-                        self.root.right_child = mon
-                        break
-
-            self.root = self.name_list[0]
+        cur_mon = self.root
+        while cur_mon != None:
+            if cur_mon.name > mon.name:
+                if cur_mon.left_child != None:
+                    cur_mon = cur_mon.left_child
+                else:
+                    cur_mon.left_child = mon
+                    return
+            elif cur_mon.name < mon.name:
+                if cur_mon.right_child != None:
+                    cur_mon = cur_mon.right_child
+                else:
+                    cur_mon.right_child = mon
+                    return
 
     def search_by_num(self, n: int):
         return self.name_list[n - 1].name
 
     def search_by_name(self, name: str):
-        self.root = self.name_list[0]
-        while self.root.name != name:
-            if self.root.name > name:
-                self.root = self.root.left_child
-            elif self.root.name < name:
-                self.root = self.root.right_child
+        cur_mon = self.root
+        while cur_mon.name != name:
+            if cur_mon.name > name:
+                cur_mon = cur_mon.left_child
+            elif cur_mon.name < name:
+                cur_mon = cur_mon.right_child
 
-        return self.root.num
+        return cur_mon.num
 
 
 if __name__ == "__main__":
