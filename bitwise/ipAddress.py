@@ -5,104 +5,86 @@
 import sys
 
 
-def compare_not_xor(front, end):
-    val = 0
-    count = 0  # 2 ** count keep being added to val
-    for _ in range(8):
-        if front & 0x0001 == end & 0x0001:
-            val += 2**count
-
-        count += 1
-
-        front, end = front >> 1, end >> 1
-
-    return val
-
-
-def compare_1_1(front, end):
-    val = 0
-    count = 0  # 2 ** count keep being added to val
-    while front != 0 or end != 0:
-        if front & 0b1 == end & 0b1:
-            val += 2**count * (front & 0b1)
-
-        count += 1
-        front, end = front >> 1, end >> 1
-
-    return val
-
-
-def mask(n, networks):  # 0이든 1이든 모두 같은 거라면 1 다르면 0 xor 반대임
-    idx_0, idx_1 = networks[0][0], networks[0][1]
-    idx_2, idx_3 = networks[0][2], networks[0][3]
-    seperated_ip = [255, 255, 255, 255]
-    for i in range(1, n):
-        if i == 1:
-            seperated_ip[0] = compare_not_xor(idx_0, networks[i][0])
-            seperated_ip[1] = compare_not_xor(idx_1, networks[i][1])
-            seperated_ip[2] = compare_not_xor(idx_2, networks[i][2])
-            seperated_ip[3] = compare_not_xor(idx_3, networks[i][3])
-
-        else:
-            seperated_ip[0] = compare_1_1(
-                seperated_ip[0], compare_not_xor(idx_0, networks[i][0])
-            )
-            seperated_ip[1] = compare_1_1(
-                seperated_ip[1], compare_not_xor(idx_1, networks[i][1])
-            )
-            seperated_ip[2] = compare_1_1(
-                seperated_ip[2], compare_not_xor(idx_2, networks[i][2])
-            )
-            seperated_ip[3] = compare_1_1(
-                seperated_ip[3], compare_not_xor(idx_3, networks[i][3])
-            )
-
-        idx_0 = networks[i][0]
-        idx_1 = networks[i][1]
-        idx_2 = networks[i][2]
-        idx_3 = networks[i][3]
-
-    print(seperated_ip)
+class IP:
+    def __init__(self, data):
+        self.data = data
+        self.same = [True, True, True, True]
+        self.mask = 0b11111111
+        self.mutual_bit = 0b00000000
+        self.num_m_bit = 0
+        self.min_ip = [0, 0, 0, 0]
+    
+    def find_mutual_bit(self):
+        try:
+            aim_idx = self.same.index(False)
+        except:
+            self.min_ip = self.data[0]
+            return
+        count = 0
+        for i in range(len(self.data)):
+            if i == 0:
+                self.mutual_bit = self.data[i][aim_idx]
+                continue
+            
+            count -= count
+            tmp_data = self.data[i][aim_idx]
+            while self.mutual_bit != tmp_data:
+                self.mutual_bit >>= 1
+                tmp_data >>= 1
+                count += 1
+            self.num_m_bit = max(count, self.num_m_bit)
+            self.mutual_bit <<= count
 
 
-def IPaddress(n, networks):  # 1로 모두 같으면 1
-    idx_0, idx_1 = networks[0][0], networks[0][1]
-    idx_2, idx_3 = networks[0][2], networks[0][3]
-    seperated_ip = [idx_0, idx_1, idx_2, idx_3]
-    for i in range(1, n):
-        if i == 1:
-            seperated_ip[0] = compare_1_1(idx_0, networks[i][0])
-            seperated_ip[1] = compare_1_1(idx_1, networks[i][1])
-            seperated_ip[2] = compare_1_1(idx_2, networks[i][2])
-            seperated_ip[3] = compare_1_1(idx_3, networks[i][3])
+    def find_mask(self):
+        try:
+            aim_idx = self.same.index(False)
+        except:
+            self.mask = [255, 255, 255, 255]
+            return
+        self.mask >>= self.num_m_bit
+        self.mask <<= self.num_m_bit
+        result_mask = [255, 255, 255, 255]
+        result_mask[aim_idx] = self.mask
+        for i in range(aim_idx+1, 4):
+            result_mask[i] = 0
 
-        else:
-            seperated_ip[0] = compare_1_1(
-                seperated_ip[0], compare_1_1(idx_0, networks[i][0])
-            )
-            seperated_ip[1] = compare_1_1(
-                seperated_ip[1], compare_1_1(idx_1, networks[i][1])
-            )
-            seperated_ip[2] = compare_1_1(
-                seperated_ip[2], compare_1_1(idx_2, networks[i][2])
-            )
-            seperated_ip[3] = compare_1_1(
-                seperated_ip[3], compare_1_1(idx_3, networks[i][3])
-            )
+        self.mask = result_mask
+        
+    def find_min_ip(self):
+        try:
+            aim_idx = self.same.index(False)
+        except:
+            return
+        for idx, num in enumerate(data[0]):
+            self.min_ip[idx] = self.mask[idx] & int(num)
+            
 
-        idx_0 = networks[i][0]
-        idx_1 = networks[i][1]
-        idx_2 = networks[i][2]
-        idx_3 = networks[i][3]
-
-    print(seperated_ip)
-
+    def diff_part(self):
+        for idx in range(1, len(self.data)):
+            if self.data[0][0] != self.data[idx][0]:
+                self.same[0] = False
+                break
+            elif self.data[0][1] != self.data[idx][1]:
+                self.same[1] = False
+                break
+            elif self.data[0][2] != self.data[idx][2]:
+                self.same[2] = False
+                break
+            elif self.data[0][3] != self.data[idx][3]:
+                self.same[3] = False
+                break
 
 if __name__ == "__main__":
     input = sys.stdin.read
     data = input().split()
     n = int(data[0])
     data = data[1:]
-    data = [tuple(map(int, i.split("."))) for i in data]
-    IPaddress(n, data)
-    mask(n, data)
+    data = [list(map(int, i.split("."))) for i in data]
+    result = IP(data)
+    result.diff_part()
+    result.find_mutual_bit()
+    result.find_mask()
+    result.find_min_ip()
+    print(f"{result.min_ip[0]}.{result.min_ip[1]}.{result.min_ip[2]}.{result.min_ip[3]}")
+    print(f"{result.mask[0]}.{result.mask[1]}.{result.mask[2]}.{result.mask[3]}")
