@@ -30,9 +30,11 @@ class IP:
         self.mask >>= self.num_common_bit
         self.mask <<= self.num_common_bit
 
-        sliced_mask = f"{(self.mask >> 24) & 0xff}.{(self.mask >> 16) & 0xff}.{(self.mask >> 8) & 0xff}.{self.mask & 0xff}"
+        result_mask = ""
+        for i in range(4):
+            result_mask += f"{(self.mask >> (24 - 8 * i)) & 0xFF}."
 
-        return sliced_mask
+        return result_mask.rstrip(".")
 
     def min_ip(self):
         tmp_ip = (
