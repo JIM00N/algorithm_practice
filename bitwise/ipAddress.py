@@ -42,6 +42,7 @@ class IP:
         except:
             self.mask = [255, 255, 255, 255]
             return
+        
         self.mask >>= self.num_m_bit
         self.mask <<= self.num_m_bit
         result_mask = [255, 255, 255, 255]
@@ -64,16 +65,13 @@ class IP:
         for idx in range(1, len(self.data)):
             if self.data[0][0] != self.data[idx][0]:
                 self.same[0] = False
-                break
             elif self.data[0][1] != self.data[idx][1]:
                 self.same[1] = False
-                break
             elif self.data[0][2] != self.data[idx][2]:
                 self.same[2] = False
-                break
             elif self.data[0][3] != self.data[idx][3]:
                 self.same[3] = False
-                break
+
 
 if __name__ == "__main__":
     input = sys.stdin.read
