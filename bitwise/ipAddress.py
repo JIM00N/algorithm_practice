@@ -1,7 +1,7 @@
 # Problem : [IP 주소] https://www.acmicpc.net/problem/2064
 # Solver : 문지석
-# Solved Date : 2024.11.13
-# BigO :
+# Solved Date : 2024.02.25
+# BigO : N
 import sys
 
 
