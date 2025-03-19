@@ -25,25 +25,27 @@ class Pocketmon_Ball:
             self.root = mon
             return
 
-        cur_mon = self.root
+        cur_mon = self.root # 순회하기 위한 cur_mon 변수 생성
         while cur_mon != None:
             if cur_mon.name > mon.name:
+                # cur_mon 이름이 mon 이름보다 알파벳 순서 상 뒤라면
                 if cur_mon.left_child != None:
                     cur_mon = cur_mon.left_child
                 else:
                     cur_mon.left_child = mon
                     return
             elif cur_mon.name < mon.name:
+                # cur_mon 이름이 mon 이름보다 알파벳 순서 상 앞이라면
                 if cur_mon.right_child != None:
                     cur_mon = cur_mon.right_child
                 else:
                     cur_mon.right_child = mon
                     return
 
-    def search_by_num(self, n: int):
+    def search_by_num(self, n: int): # 번호로 찾으면 name 리턴
         return self.name_list[n - 1].name
 
-    def search_by_name(self, name: str):
+    def search_by_name(self, name: str): # 이름으로 찾으면 번호 리턴
         cur_mon = self.root
         while cur_mon.name != name:
             if cur_mon.name > name:
@@ -60,14 +62,15 @@ if __name__ == "__main__":
 
     for i in range(num_pocketmons):
         lee_dasom.insert(Pocket_Mon(input(), i + 1))
+        # (포켓몬 이름, 번호) 입력
 
     result = []
     for _ in range(num_questions):
-        question = input()
+        question = input() # 찾는 포켓몬의 이름 혹은 번호
         try:
-            question = int(question)
+            question = int(question) # 번호이면 search_by_num
             result.append(lee_dasom.search_by_num(question))
-        except:
+        except: # 번호가 아니라 이름이라면 search_by_name
             result.append(f"{lee_dasom.search_by_name(question)}")
 
     print("\n".join(result))
